@@ -6,7 +6,7 @@
 /*   By: spowers <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 15:03:49 by spowers           #+#    #+#             */
-/*   Updated: 2020/07/15 02:08:11 by spowers          ###   ########.fr       */
+/*   Updated: 2020/07/15 12:59:46 by spowers          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,34 @@ void	ft_bzero(void *b, size_t n)
 	}
 }
 
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	char		*str;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	j = 0;
+	if (!(str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+		return (NULL);
+	ft_bzero(str, ft_strlen(s1) + ft_strlen(s2) + 1);
+	while (j < ft_strlen(s1))
+	{
+		str[j] = s1[j];
+		j++;
+	}
+	i = j;
+	j = 0;
+	while (j < ft_strlen(s2))
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	return (str);
+}
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
@@ -44,7 +72,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (NULL);
-	if (!(str = malloc(sizeof(char) * len + 1)))
+	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
 		return (NULL);
 	if ((int)start > ft_strlen(s))
 	{
@@ -79,30 +107,3 @@ char	*ft_strdup(const char *s1)
 	return (str);
 }
 
-char		*ft_strjoin(char const *s1, char const *s2)
-{
-	int			i;
-	int			j;
-	char		*str;
-
-	i = 0;
-	j = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (str == NULL)
-		return (NULL);
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
-	str[i] = '\0';
-	return (str);
-}
